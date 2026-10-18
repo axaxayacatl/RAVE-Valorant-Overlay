@@ -1,190 +1,687 @@
 @font-face {
     font-family: 'Tungsten';
-    src: url(./font/tungsten-bold.ttf);
+    src: url('./font/tungsten-bold.ttf') format('truetype');
+    font-display: swap;
 }
+
 @font-face {
     font-family: 'DIN Light';
-    src: url(./font/din-light.otf);
+    src: url('./font/din-light.otf') format('opentype');
+    font-display: swap;
 }
+
 @font-face {
     font-family: 'DIN Regular';
-    src: url(./font/din-regular.otf);
+    src: url('./font/din-regular.otf') format('opentype');
+    font-display: swap;
 }
+
 @font-face {
     font-family: 'DIN Medium';
-    src: url(./font/din-medium.otf);
+    src: url('./font/din-medium.otf') format('opentype');
+    font-display: swap;
+}
+
+/* --------------------------------------------------
+   BASE
+-------------------------------------------------- */
+
+:root {
+    color-scheme: dark;
+    --admin-purple: #612574;
+    --admin-text: #ffffff;
+    --admin-control: #ffffffaa;
+    --admin-control-hover: #ffffff;
+    --admin-left: rgb(45, 143, 113);
+    --admin-right: rgb(120, 48, 68);
+    --admin-input: #0000004d;
+    --admin-focus: #f3b8ff;
+    --admin-gap: 12px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-width: 320px;
+    min-height: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 body {
-	margin: 0;
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: var(--admin-text);
+    font-family: 'DIN Regular', sans-serif;
 }
 
+button,
+input {
+    font: inherit;
+}
+
+button {
+    touch-action: manipulation;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* --------------------------------------------------
+   HEADER
+-------------------------------------------------- */
+
 header {
-	display: flex;
-	justify-content: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
     align-items: center;
-	width: 100%;
-	height: 60px;
-	padding: 0 5px;
-    box-sizing: border-box;
-	background: #612574;
-	color: white;
-	text-align: center;
-	font-size: 24px;
-	font-family: 'DIN Medium';
+    width: 100%;
+    min-height: 60px;
+    padding: 8px 52px;
+    background: var(--admin-purple);
+    color: var(--admin-text);
+    text-align: center;
+    font-size: 24px;
+    font-family: 'DIN Medium', sans-serif;
+    isolation: isolate;
+}
+
+header > div {
+    min-width: 0;
+    max-width: 100%;
+}
+
+header > div:first-of-type {
+    width: 100%;
+}
+
+header > div > div {
+    max-width: 100%;
+}
+
+header > div > div:nth-child(2) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+header > qa {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    z-index: 2;
+}
+
+header > qa:first-child {
+    position: absolute;
+    left: 4px;
+}
+
+header > qa:last-child {
+    position: absolute;
+    right: 4px;
+}
+
+header svg {
+    display: block;
+    width: 36px;
+    height: 36px;
+    fill: currentColor;
+}
+
+header .eventname,
+header .eventstage {
+    max-width: 100%;
+    min-width: 0;
+}
+
+header input.eventname,
+header input.eventstage {
+    width: auto;
+}
+
+/* --------------------------------------------------
+   CONTROLS
+-------------------------------------------------- */
+
+but,
+txbut {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background-color: var(--admin-control);
+    color: #000;
+    font-family: 'DIN Medium', sans-serif;
+    font-size: 20px;
+    line-height: 1.2;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    transition:
+        background-color 120ms ease,
+        border-color 120ms ease,
+        transform 120ms ease;
 }
 
 but {
-	cursor: pointer;
-	display: inline-flex;
-	border-radius: 5px;
-	background-color: #ffffffaa;
-	color: #000;
-	font-family: 'DIN Medium', sans-serif;
-	font-size: 20px;
-	gap: 2px;
-	height: min-content;
-}
-txbut {
-	padding-inline: 5px;
-	cursor: pointer;
-	display: inline-flex;
-	border-radius: 5px;
-	background-color: #ffffffaa;
-	color: #000;
-	font-family: 'DIN Medium', sans-serif;
-	font-size: 20px;
-	USER-SELECT: NONE;
-	justify-content: center;
-}
-.onechar {
-	width: 1.2ch;
+    gap: 2px;
+    height: min-content;
 }
 
-but:hover tip, txbut:hover tip{
-  	visibility: visible;
+txbut {
+    min-width: 32px;
+    min-height: 32px;
+    padding-inline: 5px;
 }
+
+.onechar {
+    width: 1.2ch;
+    min-width: 32px;
+}
+
+button {
+    max-width: 100%;
+    min-height: 34px;
+    padding: 5px 10px;
+    border: 1px solid #ffffff50;
+    border-radius: 5px;
+    background: #17131b;
+    color: #fff;
+    font-family: 'DIN Medium', sans-serif;
+    cursor: pointer;
+    transition:
+        background-color 120ms ease,
+        border-color 120ms ease,
+        transform 120ms ease;
+}
+
+button:hover,
+but:hover,
+txbut:hover {
+    background-color: var(--admin-control-hover);
+    color: #000;
+}
+
+button:active,
+but:active,
+txbut:active {
+    transform: scale(0.97);
+}
+
+button:focus-visible,
+but:focus-visible,
+txbut:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--admin-focus);
+    outline-offset: 3px;
+}
+
+#apply {
+    color: rgb(11, 128, 0);
+}
+
+#kanseru {
+    color: rgb(128, 0, 0);
+}
+
+/* --------------------------------------------------
+   TOOLTIPS
+-------------------------------------------------- */
+
 tip {
-  	visibility: hidden;
-  	background-color: #000000a4;
-  	color: #fff;
-  	text-align: center;
-	font-size: 20px;
-  	border-radius: 6px;
-  	padding: 3px 3px;
-  	position: absolute;
-	translate: 20px 20px;
-	width: max-content;
-  	z-index: 1;
-	USER-SELECT: NONE;
-	pointer-events: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: 20;
+    width: max-content;
+    max-width: min(240px, 80vw);
+    padding: 5px 8px;
+    border: 1px solid #ffffff25;
+    border-radius: 6px;
+    background: #17131bf2;
+    color: #fff;
+    font-family: 'DIN Regular', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.35;
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    visibility: hidden;
+    opacity: 0;
+    translate: -50% 6px;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    transition:
+        opacity 120ms ease,
+        translate 120ms ease,
+        visibility 120ms ease;
 }
+
+but:hover tip,
+txbut:hover tip,
+but:focus-visible tip,
+txbut:focus-visible tip {
+    visibility: visible;
+    opacity: 1;
+    translate: -50% 8px;
+}
+
+/* --------------------------------------------------
+   TEAM LAYOUT
+-------------------------------------------------- */
 
 teams {
-	width: 100%;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-teamL {
-	grid-row: -1 / 0;
-}
-teamR {
-	grid-row: 0 / 1;
-}
-teams > * {
-	display: flex;
-	flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-teamL > div , teamR > div {
-	text-align: center;
-	font-family: 'DIN Regular', sans-serif;
+    gap: 0;
+    width: 100%;
+    min-width: 0;
 }
 
+teamL {
+    grid-row: auto;
+    grid-column: 1;
+}
+
+teamR {
+    grid-row: auto;
+    grid-column: 2;
+}
+
+teams > * {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 0;
+    max-width: 100%;
+    padding: 16px 10px;
+    overflow-wrap: anywhere;
+}
+
+teamL > div,
+teamR > div {
+    max-width: 100%;
+    text-align: center;
+    font-family: 'DIN Regular', sans-serif;
+}
+
+teams > div {
+    z-index: 1;
+}
+
+teams > teamL > div,
+teams > teamR > div {
+    width: 100%;
+}
+
+teams button,
+teams but,
+teams txbut {
+    margin: 2px;
+}
+
+teams > teamL > div:last-child,
+teams > teamR > div:last-child {
+    line-height: 1.7;
+}
+
+/* --------------------------------------------------
+   TYPOGRAPHY
+-------------------------------------------------- */
+
 .tung {
-	font-family: 'Tungsten';
+    font-family: 'Tungsten', Impact, sans-serif;
 }
+
 .din0 {
-	font-family: 'DIN Light';
+    font-family: 'DIN Light', sans-serif;
 }
+
 .din1 {
-	font-family: 'DIN Regular';
+    font-family: 'DIN Regular', sans-serif;
 }
+
 .din2 {
-	font-family: 'DIN Medium';
+    font-family: 'DIN Medium', sans-serif;
 }
+
 .mono {
-	font-family: monospace, sans-serif;
+    font-family: monospace, sans-serif;
 }
+
+h1 {
+    margin-block-start: 0.67em;
+    margin-block-end: 0.2em;
+}
+
+h2 {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+/* --------------------------------------------------
+   TEAM COLORS AND LOGOS
+-------------------------------------------------- */
 
 .logo_s {
     width: 30px;
     height: 30px;
-	background-color: #0e1820;
+    background-color: #0e1820;
+    object-fit: contain;
 }
+
 .logo_l {
     width: 100px;
     height: 100px;
-	background-color: #0e1820;
-	padding: 5px;
+    padding: 5px;
+    background-color: #0e1820;
+    object-fit: contain;
 }
 
 .ct {
-	background-color: rgb(45, 143, 113);
-}
-.t {
-	background-color: rgb(120, 48, 68);
+    background-color: var(--admin-left);
 }
 
-h1 {
-	margin-block-end: 0.9em;
-	margin-block-end: 0.2em;
+.t {
+    background-color: var(--admin-right);
 }
 
 .diamond {
-	opacity: 0;
-	content: url(./img/d0.png);
+    content: url('./img/d0.png');
+    opacity: 0;
 }
+
 .diamond[fill] {
-	opacity: 0;
-	content: url(./img/d1.png);
+    content: url('./img/d1.png');
+    opacity: 0;
 }
 
+/* --------------------------------------------------
+   INPUTS
+-------------------------------------------------- */
 
-.noteditmode input {
-	display: none;
-}
 input {
-	background: 0;
+    max-width: 100%;
+    min-width: 0;
+    margin: 2px;
+    padding: 5px;
+    border: 1px dotted #ffffff75;
+    border-radius: 3px;
+    background: var(--admin-input);
     color: inherit;
     text-align: center;
-	field-sizing: content;
-	border-style: dotted;
-    margin: 2px;
-    background: #0000004d;
-}
-input:-internal-autofill-selected, input:-webkit-autofill, input:-webkit-autofill:focus{
-	-webkit-box-shadow: 0 0 0px 1000px #fd5d013d inset;
-    appearance: auto !important;
-    color: fieldtext !important;
-	field-sizing: content !important;
 }
 
-.noteditmode #apply, .noteditmode #kanseru,
-.editmode #edit1 {
-	display: none;
+input:not([type="checkbox"]):not([type="radio"]) {
+    field-sizing: content;
 }
-.editmode div.abbrL, .editmode div.abbrR, .editmode div.tnameL, .editmode div.tnameR, .editmode div.eventname, .editmode div.eventstage,
-.editmode div.logopathL, .editmode div.logopathR {
-	display: none;
+
+input::placeholder {
+    color: #ffffffa0;
+}
+
+input:-internal-autofill-selected,
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 1000px #fd5d013d inset;
+    -webkit-text-fill-color: #fff;
+    appearance: auto !important;
+    field-sizing: content !important;
+}
+
+/* --------------------------------------------------
+   EDIT MODE
+-------------------------------------------------- */
+
+.noteditmode input {
+    display: none;
+}
+
+.noteditmode #apply,
+.noteditmode #kanseru,
+.editmode #edit1 {
+    display: none;
+}
+
+.editmode div.abbrL,
+.editmode div.abbrR,
+.editmode div.tnameL,
+.editmode div.tnameR,
+.editmode div.eventname,
+.editmode div.eventstage,
+.editmode div.logopathL,
+.editmode div.logopathR {
+    display: none;
 }
 
 .noteditmode #edit1,
-.editmode #apply, .editmode #kanseru {
-	display: inline-flex;
+.editmode #apply,
+.editmode #kanseru {
+    display: inline-flex;
 }
-.editmode input.abbrL, .editmode input.abbrR, .editmode input.tnameL, .editmode input.tnameR, .editmode input.eventname, .editmode input.eventstage,
-.editmode input.logopathL, .editmode input.logopathR {
-	display: block;
+
+.editmode input.abbrL,
+.editmode input.abbrR,
+.editmode input.tnameL,
+.editmode input.tnameR,
+.editmode input.eventname,
+.editmode input.eventstage,
+.editmode input.logopathL,
+.editmode input.logopathR {
+    display: block;
+}
+
+/* --------------------------------------------------
+   TABLET
+-------------------------------------------------- */
+
+@media (max-width: 700px) {
+    header {
+        min-height: 76px;
+        padding: 12px 48px;
+        font-size: 20px;
+    }
+
+    header svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    header > qa {
+        gap: 2px;
+    }
+
+    header > div > div:nth-child(2) {
+        gap: 3px;
+    }
+
+    header .eventname,
+    header .eventstage {
+        font-size: 16px !important;
+    }
+
+    teams > * {
+        gap: 7px;
+        padding: 12px 6px;
+    }
+
+    .logo_l {
+        width: 76px;
+        height: 76px;
+    }
+
+    teams .abbrL,
+    teams .abbrR {
+        font-size: 25px !important;
+    }
+
+    teams button {
+        padding: 6px 8px;
+        font-size: 14px;
+    }
+
+    teams txbut {
+        min-width: 34px;
+        min-height: 34px;
+    }
+}
+
+/* --------------------------------------------------
+   MOBILE
+-------------------------------------------------- */
+
+@media (max-width: 480px) {
+    header {
+        min-height: 92px;
+        padding: 42px 8px 10px;
+        font-size: 18px;
+    }
+
+    header > qa:first-child {
+        top: 4px;
+        left: 4px;
+    }
+
+    header > qa:last-child {
+        top: 4px;
+        right: 4px;
+    }
+
+    header svg {
+        width: 27px;
+        height: 27px;
+    }
+
+    header > div {
+        width: 100%;
+    }
+
+    header > div > div:nth-child(2) {
+        gap: 2px;
+    }
+
+    header .eventname,
+    header .eventstage {
+        font-size: 14px !important;
+    }
+
+    teams > * {
+        gap: 6px;
+        padding: 10px 4px;
+    }
+
+    .logo_l {
+        width: 60px;
+        height: 60px;
+        padding: 3px;
+    }
+
+    teams .abbrL,
+    teams .abbrR {
+        font-size: 21px !important;
+    }
+
+    teams .tnameL,
+    teams .tnameR {
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
+
+    teams > teamL > div:last-child,
+    teams > teamR > div:last-child {
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    teams button {
+        min-height: 36px;
+        margin: 2px 0;
+        padding: 5px;
+        font-size: 12px;
+    }
+
+    teams txbut {
+        min-width: 30px;
+        min-height: 32px;
+        font-size: 18px;
+    }
+
+    body > h2 {
+        padding-inline: 8px;
+        font-size: 18px;
+    }
+
+    body > button {
+        margin: 3px;
+        font-size: 13px;
+    }
+}
+
+/* --------------------------------------------------
+   VERY NARROW SCREENS
+-------------------------------------------------- */
+
+@media (max-width: 350px) {
+    header {
+        padding-inline: 4px;
+        font-size: 16px;
+    }
+
+    header svg {
+        width: 23px;
+        height: 23px;
+    }
+
+    header > qa {
+        gap: 1px;
+    }
+
+    teams > * {
+        padding-inline: 2px;
+    }
+
+    .logo_l {
+        width: 48px;
+        height: 48px;
+    }
+
+    teams .abbrL,
+    teams .abbrR {
+        font-size: 19px !important;
+    }
+
+    teams button {
+        padding-inline: 3px;
+        font-size: 11px;
+    }
+}
+
+/* --------------------------------------------------
+   ACCESSIBILITY
+-------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
 }
